@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Term Deposit Subscription Predictor</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 640px; margin: 40px auto; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, select { width: 100%; padding: 6px; margin-top: 4px; box-sizing: border-box; }
+    button { margin-top: 20px; padding: 10px 20px; }
+    .result { margin-top: 25px; padding: 15px; border-radius: 6px; }
+    .yes { background: #e6ffe6; border: 1px solid #4caf50; }
+    .no  { background: #fff0f0; border: 1px solid #e57373; }
+  </style>
+</head>
+<body>
+  <h2>Will this customer subscribe to a term deposit?</h2>
+
+  <form method="POST" action="/predict">
+    <label>Age</label>
+    <input type="number" name="age" required>
+
+    <label>Job</label>
+    <select name="job">
+      <option>admin.</option><option>blue-collar</option><option>entrepreneur</option>
+      <option>housemaid</option><option>management</option><option>retired</option>
+      <option>self-employed</option><option>services</option><option>student</option>
+      <option>technician</option><option>unemployed</option><option>unknown</option>
+    </select>
+
+    <label>Marital status</label>
+    <select name="marital">
+      <option>married</option><option>single</option><option>divorced</option>
+    </select>
+
+    <label>Education</label>
+    <select name="education">
+      <option>primary</option><option>secondary</option><option>tertiary</option><option>unknown</option>
+    </select>
+
+    <label>Has credit in default?</label>
+    <select name="default"><option>no</option><option>yes</option></select>
+
+    <label>Balance (account balance)</label>
+    <input type="number" name="balance" required>
+
+    <label>Has housing loan?</label>
+    <select name="housing"><option>yes</option><option>no</option></select>
+
+    <label>Has personal loan?</label>
+    <select name="loan"><option>no</option><option>yes</option></select>
+
+    <label>Contact type</label>
+    <select name="contact">
+      <option>cellular</option><option>telephone</option><option>unknown</option>
+    </select>
+
+    <label>Last contact day of month</label>
+    <input type="number" name="day" min="1" max="31" required>
+
+    <label>Last contact month</label>
+    <select name="month">
+      <option>jan</option><option>feb</option><option>mar</option><option>apr</option>
+      <option>may</option><option>jun</option><option>jul</option><option>aug</option>
+      <option>sep</option><option>oct</option><option>nov</option><option>dec</option>
+    </select>
+
+    <label>Number of contacts this campaign</label>
+    <input type="number" name="campaign" required>
+
+    <label>Days since last contact from a previous campaign (-1 if never)</label>
+    <input type="number" name="pdays" required>
+
+    <label>Number of contacts before this campaign</label>
+    <input type="number" name="previous" required>
+
+    <label>Outcome of previous campaign</label>
+    <select name="poutcome">
+      <option>unknown</option><option>failure</option><option>other</option><option>success</option>
+    </select>
+
+    <button type="submit">Predict</button>
+  </form>
+
+  {% if result %}
+  <div class="result {{ 'yes' if 'Yes' in result.label else 'no' }}">
+    <strong>Prediction:</strong> {{ result.label }}<br>
+    <strong>Predicted probability:</strong> {{ result.probability }}<br>
+    <strong>Decision threshold used:</strong> {{ result.threshold_used }}
+  </div>
+  {% endif %}
+</body>
+</html>

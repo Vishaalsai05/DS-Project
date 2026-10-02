@@ -1,0 +1,37 @@
+# Change drive and directory to your project folder
+cd /d "E:\Datamites\Projects\Portuguese Bank Marketting Project"
+
+# Create a new Conda environment
+conda create -n mlenv python=3.11
+
+# View all Conda environments
+conda env list
+
+# Activate the environment
+conda activate mlenv
+
+# Install required libraries for THIS app
+pip install -r requirements.txt
+
+# (equivalent to, if installing manually)
+# pip install flask numpy pandas scikit-learn xgboost
+
+# --- Generate model.pkl ---
+# Open your notebook (Portuguese_Project_XGBoost_OverfittingFixed_-_Final_check__2_.ipynb)
+# and run notebook_save_snippet.py as a new final cell, AFTER xgbc_final and
+# best_threshold already exist. This creates model.pkl.
+#
+# Then move/copy that model.pkl into this same folder (E:\ML_Project\portuguese_app),
+# alongside app.py and the templates\ folder.
+
+# Run the Flask application
+python app.py
+
+# Open in your browser
+http://127.0.0.1:5000/
+
+# Stop the Flask server
+Ctrl + C
+
+# Deactivate the environment
+conda deactivate
